@@ -1,8 +1,11 @@
 ﻿using Kitchen.App.Models;
+using Kitchen.Library.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Kitchen.App.Controllers
@@ -12,12 +15,15 @@ namespace Kitchen.App.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IMasterChefData _masterChef;
 
         public HomeController(ILogger<HomeController> logger,
             UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            SignInManager<IdentityUser> signInManager,
+            IMasterChefData masterChef)
         {
             _signInManager = signInManager;
+            _masterChef = masterChef;
             _logger = logger;
             _userManager = userManager;
         }
@@ -38,9 +44,9 @@ namespace Kitchen.App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel login)
+        public async Task<IActionResult> Login(LogInViewModel login)
         {
-            var user = await _userManager.FindByNameAsync(login.Username);
+            var user = await _userManager.FindByEmailAsync(login.Email);
 
             if (user != null)
             {
@@ -56,27 +62,28 @@ namespace Kitchen.App.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(LoginViewModel login)
+        public async Task<IActionResult> Register(RegisterViewModel register)
         {
+            var username = $"{register.Name.ToLowerInvariant()}{register.Surname.ToLowerInvariant()}{new Random().Next()}";
             var user = new IdentityUser
             {
-                UserName = login.Username
+                Email = register.Email,
+                UserName = new Regex(@"([^a-z])").Replace(username, "0")
             };
-            var result = await _userManager.CreateAsync(user, login.Password);
-            //---------------------------------------------------------------
-            //if (await _roleManager.FindByNameAsync("Admin") == null)
-            //{
-            //    //Add role
-            //    await _roleManager.CreateAsync(new IdentityRole("Admin"));
-            //}
+            var addedUser = await _userManager.FindByEmailAsync(register.Email);
+
+            if(addedUser != null)
+            {
+                return BadRequest("User already exists");
+            }
+
+            var result = await _userManager.CreateAsync(user, register.Password);
+
             if (result.Succeeded)
             {
-                ////Add to role
-                ////await _userManager.AddToRoleAsync(await _userManager.FindByNameAsync(username), "Admin");
-                ////sign user here
-                //await _signInManager.PasswordSignInAsync(user, password, false, false);
+                addedUser = await _userManager.FindByEmailAsync(register.Email);
 
-                //return RedirectToAction("EmailVerification");
+                await _masterChef.AddMasterChefAsync(addedUser.Id,register.Name, register.Surname, register.Email, register.PhoneNumber);
             }
             return RedirectToAction("Index");
         }

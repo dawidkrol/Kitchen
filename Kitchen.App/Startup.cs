@@ -1,4 +1,6 @@
 using Kitchen.App.Data;
+using Kitchen.Library.Data;
+using Kitchen.Library.DbAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -44,6 +46,8 @@ namespace Kitchen.App
             });
 
             services.AddControllersWithViews();
+            services.AddTransient<ISqlDataAccess, SqlDataAccess>();
+            services.AddScoped<IMasterChefData, MasterChefData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
