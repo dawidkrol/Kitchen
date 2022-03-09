@@ -16,26 +16,25 @@ namespace Kitchen.App.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IMasterChefData _masterChef;
+        private readonly ICategoryStructData _structData;
 
         public HomeController(ILogger<HomeController> logger,
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            IMasterChefData masterChef)
+            IMasterChefData masterChef,
+            ICategoryStructData structData)
         {
             _signInManager = signInManager;
             _masterChef = masterChef;
+            _structData = structData;
             _logger = logger;
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
-        [Authorize]
-        public IActionResult Privacy()
-        {
-            return View();
+            var categories = await _structData.GetCategories();
+            return View(categories);
         }
 
         public IActionResult Login()
@@ -72,7 +71,7 @@ namespace Kitchen.App.Controllers
             };
             var addedUser = await _userManager.FindByEmailAsync(register.Email);
 
-            if(addedUser != null)
+            if (addedUser != null)
             {
                 return BadRequest("User already exists");
             }
@@ -83,10 +82,14 @@ namespace Kitchen.App.Controllers
             {
                 addedUser = await _userManager.FindByEmailAsync(register.Email);
 
-                await _masterChef.AddMasterChefAsync(addedUser.Id,register.Name, register.Surname, register.Email, register.PhoneNumber);
+                await _masterChef.AddMasterChefAsync(addedUser.Id, register.Name, register.Surname, register.Email, register.PhoneNumber);
             }
             return RedirectToAction("Index");
         }
-        public IActionResult EmailVerification() => View();
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("Auth.Cookie");
+            return RedirectToAction("Index");
+        }
     }
 }

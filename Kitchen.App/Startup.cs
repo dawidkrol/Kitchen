@@ -1,5 +1,7 @@
 using Kitchen.App.Data;
+using Kitchen.App.Models;
 using Kitchen.Library.Data;
+using Kitchen.Library.DataModels;
 using Kitchen.Library.DbAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,9 +47,20 @@ namespace Kitchen.App
                 config.LoginPath = "/Home/Authenticate";
             });
 
+            services.AddAutoMapper(config =>
+            {
+                config.CreateMap<PrzepisViewModel, PrzepisData>();
+                config.CreateMap<PrzepisData, PrzepisViewModel>();
+
+                config.CreateMap<PrzepisDetailsViewModel, PrzepisData>();
+                config.CreateMap<PrzepisData, PrzepisDetailsViewModel>();
+            });
+
             services.AddControllersWithViews();
             services.AddTransient<ISqlDataAccess, SqlDataAccess>();
             services.AddScoped<IMasterChefData, MasterChefData>();
+            services.AddScoped<IPrzepisyData, PrzepisyData>();
+            services.AddScoped<ICategoryStructData, CategoryStructData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,7 +73,6 @@ namespace Kitchen.App
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();

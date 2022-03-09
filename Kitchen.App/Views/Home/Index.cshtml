@@ -1,8 +1,14 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<Kitchen.Library.DataModels.KategoriaData>
+@{
+    int categoryId = 0;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@foreach (var item in Model)
+{
+    <h2 class="dropdown-item">@item?.NazwaKategorii</h2>
+    foreach (var i in item?.SubDirectories)
+    {
+        <a href="@Url.Action("", "Przepisy", new { id = i.ID_Podkategorii })">@i.nazwa_podkategorii</a>
+        <br>
+    }
+}

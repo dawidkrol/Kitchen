@@ -1,0 +1,74 @@
+﻿@model Kitchen.App.Models.PrzepisDetailsViewModel
+
+@{
+    ViewData["Title"] = "PrzepisyDetails";
+}
+
+<h1>@Html.DisplayFor(model => model.Nazwa)</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Liczba porcji
+        </dt>
+
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LiczbaPorcji)
+        </dd>
+        <dt class="col-sm-2">
+            Białko w porcji
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BialkoWPorcji)
+        </dd>
+        <dt class="col-sm-2">
+            Węglowodany w porcji
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WeglowodanyWPorcji)
+        </dd>
+        <dt class="col-sm-2">
+            Wartość kal w jednej porcji
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WartoscKalJednejPorcji)
+        </dd>
+        <dt class="col-sm-2">
+            Szacowana wartość
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SzacowanaWartosc)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Kraj)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Kraj)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Region)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Region)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Imie)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Imie)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nazwisko)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nazwisko)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Przepis)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Przepis)
+        </dd>
+    </dl>
+</div>
