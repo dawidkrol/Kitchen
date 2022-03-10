@@ -31,8 +31,7 @@ namespace Kitchen.Library.Data
                     Nazwa = data.Nazwa,
                     Przepis = data.Przepis,
                     Idpodkategorii = data.IdPodkategorii,
-                    Region = data.Region,
-                    Kraj = data.Kraj,
+                    IdPochodzenia = data.IdPochodzenia,
                     LiczbaPorcji = data.LiczbaPorcji,
                     SzacowanaWartosc = data.SzacowanaWartosc,
                     BialkoWPorcji = data.BialkoWPorcji,
@@ -43,5 +42,9 @@ namespace Kitchen.Library.Data
                     UserId = data.UserId
             });
         }
+        public async Task Delete(PrzepisData data)
+        {
+            await _data.SaveDataAsync<dynamic>("[dbo].[spPrzepisy_Del]", new { Id = data.Id });
+        } 
     }
 }

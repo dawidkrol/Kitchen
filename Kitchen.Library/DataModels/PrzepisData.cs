@@ -12,6 +12,7 @@
         public int? WartoscKalJednejPorcji { get; set; }
         public int? SzacowanaWartosc { get; set; }
         public int? TluszczeWPorcji { get; set; }
+        public int IdPochodzenia { get; set; }
         public string Kraj { get; set; }
         public string Region { get; set; }
         public string UserId { get; set; }

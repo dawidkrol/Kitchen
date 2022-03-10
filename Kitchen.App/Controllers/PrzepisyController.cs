@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,14 +16,17 @@ namespace Kitchen.App.Controllers
         private readonly IPrzepisyData _przepisyData;
         private readonly IMapper _mapper;
         private readonly ICategoryStructData _categoryStructData;
+        private readonly IPochodzenieData _pochodzenieData;
 
         public PrzepisyController(IPrzepisyData przepisyData,
             IMapper mapper,
-            ICategoryStructData categoryStructData)
+            ICategoryStructData categoryStructData,
+            IPochodzenieData pochodzenieData)
         {
             _przepisyData = przepisyData;
             _mapper = mapper;
             _categoryStructData = categoryStructData;
+            _pochodzenieData = pochodzenieData;
         }
         [HttpGet("Przepisy/index/{id}")]
         public async Task<IActionResult> Index(int id)
@@ -42,6 +44,7 @@ namespace Kitchen.App.Controllers
         public async Task<IActionResult> Add()
         {
             ViewData["Categories"] = await _categoryStructData.GetCategories();
+            ViewData["Regions"] = _mapper.Map<IEnumerable<RegionViewModel>>(await _pochodzenieData.Get());
 
             return View();
         }
@@ -53,6 +56,12 @@ namespace Kitchen.App.Controllers
             model.UserId = HttpContext.User.Claims.Where(x => x.Type.Contains("nameidentifier")).Single().Value;
 
             await _przepisyData.Add(_mapper.Map<PrzepisData>(model));
+        }
+        //TODO Moje przepisy i usuwanie
+        public async Task<IActionResult> GetMy()
+        {
+            var userId = HttpContext.User.Claims.Where(x => x.Type.Contains("nameidentifier")).Single().Value;
+            return View();
         }
     }
 }

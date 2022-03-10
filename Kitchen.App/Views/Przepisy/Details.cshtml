@@ -6,69 +6,58 @@
 
 <h1>@Html.DisplayFor(model => model.Nazwa)</h1>
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            Liczba porcji
-        </dt>
-
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.LiczbaPorcji)
-        </dd>
-        <dt class="col-sm-2">
-            Białko w porcji
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BialkoWPorcji)
-        </dd>
-        <dt class="col-sm-2">
-            Węglowodany w porcji
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.WeglowodanyWPorcji)
-        </dd>
-        <dt class="col-sm-2">
-            Wartość kal w jednej porcji
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.WartoscKalJednejPorcji)
-        </dd>
-        <dt class="col-sm-2">
-            Szacowana wartość
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SzacowanaWartosc)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Kraj)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Kraj)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Region)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Region)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Imie)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Imie)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nazwisko)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nazwisko)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Przepis)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Przepis)
-        </dd>
-    </dl>
+<br />
+<br />
+<div class="border-dark container-fluid text-center" style="border: 1px solid; border-radius: 20px; padding: 20px;">
+    <div class="row">
+        <div class="col-sm-4">
+            <h6>LICZBA PORCJI</h6>
+            <p>@Html.DisplayFor(model => model.LiczbaPorcji)</p>
+        </div>
+        <div class="col-sm-4">
+            <h6>POCHODZENIE</h6>
+            <p>@Html.DisplayFor(model => model.Region) @Html.DisplayFor(model => model.Kraj)</p>
+        </div>
+        <div class="col-sm-4">
+            <h6>AUTOR</h6>
+            <p>@Html.DisplayFor(model => model.Imie) @Html.DisplayFor(model => model.Nazwisko)</p>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-sm-4">
+            <h6>BIAŁKO W PORCJI</h6>
+            <p>@Html.DisplayFor(model => model.BialkoWPorcji)</p>
+        </div>
+        <div class="col-sm-4">
+            <h6>TŁUSZCZE W PORCJI</h6>
+            <p>@Html.DisplayFor(model => model.TluszczeWPorcji)</p>
+        </div>
+        <div class="col-sm-4">
+            <h6>WĘGLOWODANY W PORCJI</h6>
+            <p>@Html.DisplayFor(model => model.WeglowodanyWPorcji)</p>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-sm-4">
+            @*<span class="glyphicon glyphicon-leaf"></span>*@
+            <h6>WARTOŚĆ KALORII W PORCJI</h6>
+            <p>@Html.DisplayFor(model => model.WartoscKalJednejPorcji)</p>
+        </div>
+        <div class="col-sm-4">
+            @*<span class="glyphicon glyphicon-certificate"></span>*@
+            <h6>SZACOWANA WARTOŚĆ</h6>
+            <p>@Html.DisplayFor(model => model.SzacowanaWartosc)</p>
+        </div>
+    </div>
 </div>
+<br />
+<br />
+
+<dt class="col-sm-2">
+    @Html.DisplayNameFor(model => model.Przepis)
+</dt>
+<dd class="col-sm-10">
+    @Html.DisplayFor(model => model.Przepis)
+</dd>

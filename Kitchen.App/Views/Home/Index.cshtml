@@ -1,14 +1,26 @@
 ﻿@model IEnumerable<Kitchen.Library.DataModels.KategoriaData>
-@{
-    int categoryId = 0;
-}
 
-@foreach (var item in Model)
-{
-    <h2 class="dropdown-item">@item?.NazwaKategorii</h2>
-    foreach (var i in item?.SubDirectories)
+<div id="accordion">
+    @foreach (var item in Model)
     {
-        <a href="@Url.Action("", "Przepisy", new { id = i.ID_Podkategorii })">@i.nazwa_podkategorii</a>
-        <br>
+        var id = item.NazwaKategorii.Split(' ')[0] + new Random().Next().ToString();
+    <div class="card">
+        <button class="btn" data-toggle="collapse" data-target="#@id" aria-expanded="false" aria-controls="@id">
+            <div class="" id="headingOne">
+                <h5 class="mb-0">
+                    @item?.NazwaKategorii
+                </h5>
+            </div>
+        </button>
+        <div id="@id" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+                @foreach (var i in item?.SubDirectories)
+                {
+                    <a class="btn btn-block" href="@Url.Action("", "Przepisy", new { id = i.ID_Podkategorii })">@i.nazwa_podkategorii</a>
+                    <br />
+                }
+            </div>
+        </div>
+    </div>
     }
-}
+</div>

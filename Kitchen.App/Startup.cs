@@ -54,6 +54,8 @@ namespace Kitchen.App
 
                 config.CreateMap<PrzepisDetailsViewModel, PrzepisData>();
                 config.CreateMap<PrzepisData, PrzepisDetailsViewModel>();
+
+                config.CreateMap<RegionDataModel, RegionViewModel>();
             });
 
             services.AddControllersWithViews();
@@ -61,6 +63,7 @@ namespace Kitchen.App
             services.AddScoped<IMasterChefData, MasterChefData>();
             services.AddScoped<IPrzepisyData, PrzepisyData>();
             services.AddScoped<ICategoryStructData, CategoryStructData>();
+            services.AddScoped<IPochodzenieData, PochodzenieData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
