@@ -25,6 +25,11 @@ namespace Kitchen.Library.Data
             return (await _data.LoadDataAsync<PrzepisData, dynamic>("[dbo].[spPrzepisy_GetById]", new { Id })).FirstOrDefault();
         }
 
+        public async Task<IEnumerable<PrzepisData>> GetByUserId(string userId)
+        {
+            return await _data.LoadDataAsync<PrzepisData, dynamic>("[dbo].[spPrzepisy_GetuserId]", new { UserId = userId });
+        }
+
         public async Task Add(PrzepisData data)
         {
             await _data.SaveDataAsync<dynamic>("[dbo].[spPrzepisy_Add]", new { 
@@ -42,9 +47,9 @@ namespace Kitchen.Library.Data
                     UserId = data.UserId
             });
         }
-        public async Task Delete(PrzepisData data)
+        public async Task Delete(int id)
         {
-            await _data.SaveDataAsync<dynamic>("[dbo].[spPrzepisy_Del]", new { Id = data.Id });
+            await _data.SaveDataAsync<dynamic>("[dbo].[spPrzepisy_Del]", new { Id = id });
         } 
     }
 }

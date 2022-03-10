@@ -51,17 +51,31 @@ namespace Kitchen.App.Controllers
         [Authorize]
         [HttpPost("/przepisy/add")]
         [ValidateAntiForgeryToken]
-        public async Task Add(PrzepisDetailsViewModel model, IFormCollection collection)
+        public async Task<IActionResult> Add(PrzepisDetailsViewModel model, IFormCollection collection)
         {
             model.UserId = HttpContext.User.Claims.Where(x => x.Type.Contains("nameidentifier")).Single().Value;
 
             await _przepisyData.Add(_mapper.Map<PrzepisData>(model));
+            return RedirectToAction("Index", "Home");
         }
-        //TODO Moje przepisy i usuwanie
+
         public async Task<IActionResult> GetMy()
         {
             var userId = HttpContext.User.Claims.Where(x => x.Type.Contains("nameidentifier")).Single().Value;
-            return View();
+            var data = await _przepisyData.GetByUserId(userId);
+            return View(_mapper.Map<IEnumerable<PrzepisViewModel>>(data));
+        }
+        //TODO usuwanie
+        public async Task<IActionResult> Delete(int id)
+        {
+            return View(id);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id, IFormCollection collection)
+        {
+            await _przepisyData.Delete(id);
+            return RedirectToAction("Index","Home");
         }
     }
 }

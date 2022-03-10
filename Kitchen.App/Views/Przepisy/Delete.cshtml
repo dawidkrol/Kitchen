@@ -1,0 +1,13 @@
+﻿@model int
+
+@{
+    ViewData["Title"] = "Usuwanie";
+}
+
+<h3>Na pewno chcesz usunąć?</h3>
+
+    <form asp-action="Delete">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

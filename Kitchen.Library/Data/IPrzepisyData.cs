@@ -9,6 +9,7 @@ namespace Kitchen.Library.Data
         Task<IEnumerable<PrzepisData>> Get(int IdPodkategorii);
         Task<PrzepisData> GetById(int Id);
         Task Add(PrzepisData data);
-        Task Delete(PrzepisData data);
+        Task Delete(int id);
+        Task<IEnumerable<PrzepisData>> GetByUserId(string userId);
     }
 }

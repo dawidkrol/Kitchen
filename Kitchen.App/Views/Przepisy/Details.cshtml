@@ -5,6 +5,10 @@
 }
 
 <h1>@Html.DisplayFor(model => model.Nazwa)</h1>
+@if (Model.UserId == Context.User.Claims.Where(x => x.Type.Contains("nameidentifier")).Single().Value)
+{
+    <a href="@Url.Action("Delete", "Przepisy", new { id = Model.Id })" class="btn btn-danger float-lg-right">Delete</a>
+}
 
 <br />
 <br />

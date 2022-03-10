@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Kitchen.App.Models.PrzepisViewModel>
+
+@{
+    ViewData["Title"] = "Moje przepisy";
+}
+<h1>Moje przepisy</h1>
+
+<div class="container d-flex justify-content-center">
+    <ul class="list-group mt-5 text-white">
+        @foreach (var item in Model)
+        {
+            <a href="@Url.Action("Details", "Przepisy", new { id = item.Id })" style=" text-decoration: none; color: white;">
+            <li class="list-group-item d-flex justify-content-between align-content-center">
+                <div class="d-flex flex-row">
+                    <div class="ml-2">
+                        <h6 class="mb-0">@Html.DisplayFor(modelItem => item.Nazwa)</h6>
+                        <div class="about">
+                            <span>Autor: @item?.Imie @item?.Nazwisko</span>
+                            <span>Kraj: @item.Kraj </span>
+                            <span>Region: @item.Region </span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            </a>
+        }
+    </ul>
+</div>
