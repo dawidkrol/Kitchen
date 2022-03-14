@@ -1,9 +1,6 @@
 ﻿using Kitchen.Library.DataModels;
 using Kitchen.Library.DbAccess;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Kitchen.Library.Data
@@ -18,7 +15,7 @@ namespace Kitchen.Library.Data
         }
         public async Task<IEnumerable<RegionDataModel>> Get()
         {
-            return await _data.LoadDataAsync<RegionDataModel, dynamic>("[dbo].[spPochodzenie_Get]", new { });
+            return await _data.LoadDataAsyncViews<RegionDataModel>("select * from [dbo].[vwPochodzenie_Get]");
         }
 
     }

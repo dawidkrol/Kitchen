@@ -36,7 +36,7 @@ namespace Kitchen.App.Controllers
             var categories = await _structData.GetCategories();
             return View(categories);
         }
-
+        
         public IActionResult Login()
         {
             return View();

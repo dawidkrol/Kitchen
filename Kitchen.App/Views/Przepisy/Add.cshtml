@@ -2,15 +2,14 @@
 @model Kitchen.App.Models.PrzepisDetailsViewModel
 
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "Nowy przepis";
 
     IEnumerable<KategoriaData> categories = ViewData["Categories"] as IEnumerable<KategoriaData>;
     IEnumerable<RegionViewModel> regions = ViewData["Regions"] as IEnumerable<RegionViewModel>;
 }
 
-<h1>Add</h1>
+<h1>Dodaj przepis</h1>
 
-<h4>PrzepisDetailsViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">

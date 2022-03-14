@@ -24,7 +24,12 @@ namespace Kitchen.Library.DbAccess
 
             return await connection.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
         }
+        public async Task<IEnumerable<T>> LoadDataAsyncViews<T>(string view, string connectionId = "Default")
+        {
+            using IDbConnection connection = new SqlConnection(_config.GetConnectionString(connectionId));
 
+            return await connection.QueryAsync<T>(view, commandType: CommandType.Text);
+        }
         public async Task<IEnumerable<T>> LoadMultipleMapDataAsync<T, U, O>(string storedProcedure, U parameters, Func<T, O, T> func, string connectionId = "Default")
         {
             var cs = _config.GetConnectionString(connectionId);

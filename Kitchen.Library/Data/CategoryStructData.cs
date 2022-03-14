@@ -18,8 +18,12 @@ namespace Kitchen.Library.Data
         }
         public async Task<IEnumerable<KategoriaData>> GetCategories()
         {
-            var a =  await _data.LoadDataAsync<KategoriaData, dynamic>("[dbo].[spKategorie_Get]", new { });
-            Parallel.ForEach(a,async x => x.SubDirectories = (await GetSubdirectoriesById(x.Id)).ToList());
+            var a =  await _data.LoadDataAsyncViews<KategoriaData>("select * from [dbo].[vwKategorie_Get]");
+            //Parallel.ForEach(a,async x => x.SubDirectories = (await GetSubdirectoriesById(x.Id)).ToList());
+            foreach (var x in a)
+            {
+                x.SubDirectories = (await GetSubdirectoriesById(x.Id)).ToList();
+            }
             return a;
         }
         public async Task<IEnumerable<SubCategoriesData>> GetSubdirectoriesById(int id)
