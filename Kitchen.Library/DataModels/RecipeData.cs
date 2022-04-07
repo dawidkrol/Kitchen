@@ -1,6 +1,6 @@
 ﻿namespace Kitchen.Library.DataModels
 {
-    public class PrzepisData
+    public class RecipeData
     {
         public int Id { get; set; }
         public string Nazwa { get; set; }

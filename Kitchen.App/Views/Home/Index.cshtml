@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Kitchen.Library.DataModels.KategoriaData>
+﻿@model IEnumerable<Kitchen.Library.DataModels.CategoryData>
 
 <div id="accordion">
     @foreach (var item in Model)
@@ -16,7 +16,7 @@
             <div class="card-body">
                 @foreach (var i in item?.SubDirectories)
                 {
-                    <a class="btn btn-block" href="@Url.Action("", "Przepisy", new { id = i.ID_Podkategorii })">@i.nazwa_podkategorii</a>
+                    <a class="btn btn-block" href="@Url.Action("", "Recipes", new { id = i.ID_Podkategorii })">@i.nazwa_podkategorii</a>
                     <br />
                 }
             </div>

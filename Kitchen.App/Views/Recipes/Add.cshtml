@@ -1,10 +1,10 @@
 ﻿@using Kitchen.Library.DataModels;
-@model Kitchen.App.Models.PrzepisDetailsViewModel
+@model Kitchen.App.Models.RecipeDetailsViewModel
 
 @{
     ViewData["Title"] = "Nowy przepis";
 
-    IEnumerable<KategoriaData> categories = ViewData["Categories"] as IEnumerable<KategoriaData>;
+    IEnumerable<CategoryData> categories = ViewData["Categories"] as IEnumerable<CategoryData>;
     IEnumerable<RegionViewModel> regions = ViewData["Regions"] as IEnumerable<RegionViewModel>;
 }
 

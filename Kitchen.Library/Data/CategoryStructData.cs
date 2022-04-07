@@ -19,9 +19,9 @@ namespace Kitchen.Library.Data
             _data = data;
             _logger = logger;
         }
-        public async Task<IEnumerable<KategoriaData>> GetCategories()
+        public async Task<IEnumerable<CategoryData>> GetCategories()
         {
-            var a =  await _data.LoadDataAsyncViews<KategoriaData>("select * from [dbo].[vwKategorie_Get]");
+            var a =  await _data.LoadDataAsyncViews<CategoryData>("select * from [dbo].[vwKategorie_Get]");
 
             //Faster way
             Parallel.ForEach(a, x =>

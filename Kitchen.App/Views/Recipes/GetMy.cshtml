@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Kitchen.App.Models.PrzepisViewModel>
+﻿@model IEnumerable<Kitchen.App.Models.RecipeViewModel>
 
 @{
     ViewData["Title"] = "Moje przepisy";
@@ -9,7 +9,7 @@
     <ul class="list-group mt-5 text-white">
         @foreach (var item in Model)
         {
-            <a href="@Url.Action("Details", "Przepisy", new { id = item.Id })" style=" text-decoration: none; color: white;">
+            <a href="@Url.Action("Details", "Recipes", new { id = item.Id })" style=" text-decoration: none; color: white;">
             <li class="list-group-item d-flex justify-content-between align-content-center">
                 <div class="d-flex flex-row">
                     <div class="ml-2">

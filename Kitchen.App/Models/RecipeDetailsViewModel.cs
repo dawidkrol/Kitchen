@@ -1,6 +1,6 @@
 ﻿namespace Kitchen.App.Models
 {
-    public class PrzepisDetailsViewModel
+    public class RecipeDetailsViewModel
     {
         public int Id { get; set; }
         public int IdPodkategorii { get; set; }

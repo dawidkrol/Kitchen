@@ -6,31 +6,31 @@ using System.Threading.Tasks;
 
 namespace Kitchen.Library.Data
 {
-    public class PrzepisyData : IPrzepisyData
+    public class RecipesData : IRecipesData
     {
         private readonly ISqlDataAccess _data;
 
-        public PrzepisyData(ISqlDataAccess data)
+        public RecipesData(ISqlDataAccess data)
         {
             _data = data;
         }
 
-        public async Task<IEnumerable<PrzepisData>> Get(int IdPodkategorii)
+        public async Task<IEnumerable<RecipeData>> Get(int IdPodkategorii)
         {
-            return await _data.LoadDataAsync<PrzepisData, dynamic>("[dbo].[spPrzepisy_GetByPodkategorieId]", new { IdPodkategorii });
+            return await _data.LoadDataAsync<RecipeData, dynamic>("[dbo].[spPrzepisy_GetByPodkategorieId]", new { IdPodkategorii });
         }
 
-        public async Task<PrzepisData> GetById(int Id)
+        public async Task<RecipeData> GetById(int Id)
         {
-            return (await _data.LoadDataAsync<PrzepisData, dynamic>("[dbo].[spPrzepisy_GetById]", new { Id })).FirstOrDefault();
+            return (await _data.LoadDataAsync<RecipeData, dynamic>("[dbo].[spPrzepisy_GetById]", new { Id })).FirstOrDefault();
         }
 
-        public async Task<IEnumerable<PrzepisData>> GetByUserId(string userId)
+        public async Task<IEnumerable<RecipeData>> GetByUserId(string userId)
         {
-            return await _data.LoadDataAsync<PrzepisData, dynamic>("[dbo].[spPrzepisy_GetuserId]", new { UserId = userId });
+            return await _data.LoadDataAsync<RecipeData, dynamic>("[dbo].[spPrzepisy_GetuserId]", new { UserId = userId });
         }
 
-        public async Task Add(PrzepisData data)
+        public async Task Add(RecipeData data)
         {
             await _data.SaveDataAsync<dynamic>("[dbo].[spPrzepisy_Add]", new { 
                     Nazwa = data.Nazwa,

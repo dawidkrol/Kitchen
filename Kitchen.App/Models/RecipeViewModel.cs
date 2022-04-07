@@ -1,6 +1,6 @@
 ﻿namespace Kitchen.App.Models
 {
-    public class PrzepisViewModel
+    public class RecipeViewModel
     {
         public int Id { get; set; }
         public string Nazwa { get; set; }

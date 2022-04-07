@@ -11,17 +11,18 @@ using System.Threading.Tasks;
 
 namespace Kitchen.App.Controllers
 {
-    public class PrzepisyController : Controller
+    public class RecipesController : Controller
     {
-        private readonly IPrzepisyData _przepisyData;
+        private readonly IRecipesData _przepisyData;
         private readonly IMapper _mapper;
         private readonly ICategoryStructData _categoryStructData;
-        private readonly IPochodzenieData _pochodzenieData;
+        private readonly IOriginData _pochodzenieData;
 
-        public PrzepisyController(IPrzepisyData przepisyData,
+        public RecipesController(
+            IRecipesData przepisyData,
             IMapper mapper,
             ICategoryStructData categoryStructData,
-            IPochodzenieData pochodzenieData)
+            IOriginData pochodzenieData)
         {
             _przepisyData = przepisyData;
             _mapper = mapper;
@@ -31,13 +32,13 @@ namespace Kitchen.App.Controllers
         [HttpGet("Przepisy/index/{id}")]
         public async Task<IActionResult> Index(int id)
         {
-            IEnumerable<PrzepisData> _data = await _przepisyData.Get(id);
-            return View(_mapper.Map<IEnumerable<PrzepisViewModel>>(_data));
+            IEnumerable<RecipeData> _data = await _przepisyData.Get(id);
+            return View(_mapper.Map<IEnumerable<RecipeViewModel>>(_data));
         }
         public async Task<IActionResult> Details(int id)
         {
             var det = await _przepisyData.GetById(id);
-            return View(_mapper.Map<PrzepisDetailsViewModel>(det));
+            return View(_mapper.Map<RecipeDetailsViewModel>(det));
         }
         [Authorize]
         [HttpGet("/przepisy/add")]
@@ -51,11 +52,11 @@ namespace Kitchen.App.Controllers
         [Authorize]
         [HttpPost("/przepisy/add")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(PrzepisDetailsViewModel model, IFormCollection collection)
+        public async Task<IActionResult> Add(RecipeDetailsViewModel model, IFormCollection collection)
         {
             model.UserId = HttpContext.User.Claims.Where(x => x.Type.Contains("nameidentifier")).Single().Value;
 
-            await _przepisyData.Add(_mapper.Map<PrzepisData>(model));
+            await _przepisyData.Add(_mapper.Map<RecipeData>(model));
             return RedirectToAction("Index", "Home");
         }
 
@@ -63,9 +64,8 @@ namespace Kitchen.App.Controllers
         {
             var userId = HttpContext.User.Claims.Where(x => x.Type.Contains("nameidentifier")).Single().Value;
             var data = await _przepisyData.GetByUserId(userId);
-            return View(_mapper.Map<IEnumerable<PrzepisViewModel>>(data));
+            return View(_mapper.Map<IEnumerable<RecipeViewModel>>(data));
         }
-        //TODO usuwanie
         public async Task<IActionResult> Delete(int id)
         {
             return View(id);

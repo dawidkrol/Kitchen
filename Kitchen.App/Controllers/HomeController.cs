@@ -1,6 +1,5 @@
 ﻿using Kitchen.App.Models;
 using Kitchen.Library.Data;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -36,7 +35,7 @@ namespace Kitchen.App.Controllers
             var categories = await _structData.GetCategories();
             return View(categories);
         }
-        
+
         public IActionResult Login()
         {
             return View();

@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Kitchen.Library.Data
 {
-    public class PochodzenieData : IPochodzenieData
+    public class OriginData : IOriginData
     {
         private readonly ISqlDataAccess _data;
 
-        public PochodzenieData(ISqlDataAccess data)
+        public OriginData(ISqlDataAccess data)
         {
             _data = data;
         }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Kitchen.Library.Data
 {
-    public interface IPochodzenieData
+    public interface IOriginData
     {
         Task<IEnumerable<RegionDataModel>> Get();
     }

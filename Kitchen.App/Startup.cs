@@ -49,11 +49,11 @@ namespace Kitchen.App
 
             services.AddAutoMapper(config =>
             {
-                config.CreateMap<PrzepisViewModel, PrzepisData>();
-                config.CreateMap<PrzepisData, PrzepisViewModel>();
+                config.CreateMap<RecipeViewModel, RecipeData>();
+                config.CreateMap<RecipeData, RecipeViewModel>();
 
-                config.CreateMap<PrzepisDetailsViewModel, PrzepisData>();
-                config.CreateMap<PrzepisData, PrzepisDetailsViewModel>();
+                config.CreateMap<RecipeDetailsViewModel, RecipeData>();
+                config.CreateMap<RecipeData, RecipeDetailsViewModel>();
 
                 config.CreateMap<RegionDataModel, RegionViewModel>();
             });
@@ -61,9 +61,9 @@ namespace Kitchen.App
             services.AddControllersWithViews();
             services.AddTransient<ISqlDataAccess, SqlDataAccess>();
             services.AddScoped<IMasterChefData, MasterChefData>();
-            services.AddScoped<IPrzepisyData, PrzepisyData>();
+            services.AddScoped<IRecipesData, RecipesData>();
             services.AddScoped<ICategoryStructData, CategoryStructData>();
-            services.AddScoped<IPochodzenieData, PochodzenieData>();
+            services.AddScoped<IOriginData, OriginData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

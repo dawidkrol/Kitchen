@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kitchen.Library.DataModels
 {
-    public class KategoriaData
+    public class CategoryData
     {
         public int Id { get; set; }
         public string NazwaKategorii { get; set; }

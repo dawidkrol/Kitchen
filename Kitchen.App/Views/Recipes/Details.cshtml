@@ -1,4 +1,4 @@
-﻿@model Kitchen.App.Models.PrzepisDetailsViewModel
+﻿@model Kitchen.App.Models.RecipeDetailsViewModel
 
 @{
     ViewData["Title"] = Model.Nazwa;
@@ -7,7 +7,7 @@
 <h1>@Html.DisplayFor(model => model.Nazwa)</h1>
 @if (Model.UserId == Context?.User?.Claims?.Where(x => x.Type.Contains("nameidentifier"))?.FirstOrDefault()?.Value && Context.User.Identity.IsAuthenticated == true)
 {
-    <a href="@Url.Action("Delete", "Przepisy", new { id = Model.Id })" class="btn btn-danger float-lg-right">Usuń</a>
+    <a href="@Url.Action("Delete", "Recipes", new { id = Model.Id })" class="btn btn-danger float-lg-right">Usuń</a>
 }
 
 <br />
