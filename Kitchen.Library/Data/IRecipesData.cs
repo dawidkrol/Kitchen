@@ -6,7 +6,7 @@ namespace Kitchen.Library.Data
 {
     public interface IRecipesData
     {
-        Task<IEnumerable<RecipeData>> Get(int IdPodkategorii);
+        Task<IEnumerable<RecipeData>> Get(int SubcategoryId);
         Task<RecipeData> GetById(int Id);
         Task Add(RecipeData data);
         Task Delete(int id);

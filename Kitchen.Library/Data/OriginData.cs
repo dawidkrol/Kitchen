@@ -15,7 +15,7 @@ namespace Kitchen.Library.Data
         }
         public async Task<IEnumerable<RegionDataModel>> Get()
         {
-            return await _data.LoadDataAsyncViews<RegionDataModel>("select * from [dbo].[vwPochodzenie_Get]");
+            return await _data.LoadDataAsyncViews<RegionDataModel>("select * from [dbo].[vwOrigins_Get]");
         }
 
     }

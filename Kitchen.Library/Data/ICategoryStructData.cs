@@ -6,8 +6,8 @@ namespace Kitchen.Library.Data
 {
     public interface ICategoryStructData
     {
-        Task AddSubdirectory(SubCategoriesData data);
+        Task AddSubdirectory(SubcategoriesData data);
         Task<IEnumerable<CategoryData>> GetCategories();
-        Task<IEnumerable<SubCategoriesData>> GetSubdirectoriesById(int id);
+        Task<IEnumerable<SubcategoriesData>> GetSubdirectoriesById(int id);
     }
 }

@@ -15,41 +15,40 @@ namespace Kitchen.Library.Data
             _data = data;
         }
 
-        public async Task<IEnumerable<RecipeData>> Get(int IdPodkategorii)
+        public async Task<IEnumerable<RecipeData>> Get(int SubcategoryId)
         {
-            return await _data.LoadDataAsync<RecipeData, dynamic>("[dbo].[spPrzepisy_GetByPodkategorieId]", new { IdPodkategorii });
+            return await _data.LoadDataAsync<RecipeData, dynamic>("[dbo].[spRecipes_GetBySubcategoryId]", new { SubcategoryId });
         }
 
         public async Task<RecipeData> GetById(int Id)
         {
-            return (await _data.LoadDataAsync<RecipeData, dynamic>("[dbo].[spPrzepisy_GetById]", new { Id })).FirstOrDefault();
+            return (await _data.LoadDataAsync<RecipeData, dynamic>("[dbo].[spRecipes_GetById]", new { Id })).FirstOrDefault();
         }
 
         public async Task<IEnumerable<RecipeData>> GetByUserId(string userId)
         {
-            return await _data.LoadDataAsync<RecipeData, dynamic>("[dbo].[spPrzepisy_GetuserId]", new { UserId = userId });
+            return await _data.LoadDataAsync<RecipeData, dynamic>("[dbo].[spRecipes_GetByUserId]", new { UserId = userId });
         }
 
         public async Task Add(RecipeData data)
         {
-            await _data.SaveDataAsync<dynamic>("[dbo].[spPrzepisy_Add]", new { 
-                    Nazwa = data.Nazwa,
-                    Przepis = data.Przepis,
-                    Idpodkategorii = data.IdPodkategorii,
-                    IdPochodzenia = data.IdPochodzenia,
-                    LiczbaPorcji = data.LiczbaPorcji,
-                    SzacowanaWartosc = data.SzacowanaWartosc,
-                    BialkoWPorcji = data.BialkoWPorcji,
-                    WartoscKalJednejPorcji = data.WartoscKalJednejPorcji,
-                    TluszczeWPorcji = data.TluszczeWPorcji,
-                    WeglowodanyWPorcji = data.WeglowodanyWPorcji,
-                    WartoscJednejPorcji = data.SzacowanaWartosc/data.LiczbaPorcji,
+            await _data.SaveDataAsync<dynamic>("[dbo].[spRecipes_Add]", new { 
+                    Title = data.Title,
+                    Recipe = data.Recipe,
+                    Id_Subcategory = data.Id_Subcategory,
+                    OriginId = data.OriginId,
+                    NumberOfServings = data.NumberOfServings,
+                    EstimatedValue = data.EstimatedValue,
+                    ProteinsPerServingsInGrams = data.ProteinsPerServingsInGrams,
+                    CaloriesPerServingsInGrams = data.CaloriesPerServingsInGrams,
+                    FatsPerServingsInGrams = data.FatsPerServingsInGrams,
+                    CarbohydratesPerServingsInGrams = data.CarbohydratesPerServingsInGrams,
                     UserId = data.UserId
             });
         }
         public async Task Delete(int id)
         {
-            await _data.SaveDataAsync<dynamic>("[dbo].[spPrzepisy_Del]", new { Id = id });
-        } 
+            await _data.SaveDataAsync<dynamic>("[dbo].[spRecipes_Del]", new { Id = id });
+        }
     }
 }

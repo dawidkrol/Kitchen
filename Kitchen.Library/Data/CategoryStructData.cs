@@ -21,7 +21,7 @@ namespace Kitchen.Library.Data
         }
         public async Task<IEnumerable<CategoryData>> GetCategories()
         {
-            var a =  await _data.LoadDataAsyncViews<CategoryData>("select * from [dbo].[vwKategorie_Get]");
+            var a =  await _data.LoadDataAsyncViews<CategoryData>("select * from [dbo].[vwCategories_Get]");
 
             //Faster way
             Parallel.ForEach(a, x =>
@@ -40,11 +40,11 @@ namespace Kitchen.Library.Data
             //}
             return a;
         }
-        public async Task<IEnumerable<SubCategoriesData>> GetSubdirectoriesById(int id)
+        public async Task<IEnumerable<SubcategoriesData>> GetSubdirectoriesById(int id)
         {
-            return await _data.LoadDataAsync<SubCategoriesData, dynamic>("[dbo].[spPodkategorie_GetByKategorieId]", new { IdKategorii = id });
+            return await _data.LoadDataAsync<SubcategoriesData, dynamic>("[dbo].[spSubcategories_GetByCategoryId]", new { CategoryId = id });
         }
-        public async Task AddSubdirectory(SubCategoriesData data)
+        public async Task AddSubdirectory(SubcategoriesData data)
         {
             throw new NotImplementedException();
         }
