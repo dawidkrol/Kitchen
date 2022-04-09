@@ -68,6 +68,18 @@
     <Build Include="dbo\Tables\Origin.sql" />
     <Build Include="dbo\Tables\Author.sql" />
     <Build Include="dbo\Tables\Preperation.sql" />
+    <Build Include="dbo\Stored Procedures\spCategories_Add.sql" />
+    <Build Include="dbo\Stored Procedures\spAuthor_Add.sql" />
+    <Build Include="dbo\Stored Procedures\spOrigin_Add.sql" />
+    <Build Include="dbo\Stored Procedures\spSubcategories_Add.sql" />
+    <Build Include="dbo\Stored Procedures\spSubcategories_GetByCategoryId.sql" />
+    <Build Include="dbo\Stored Procedures\spRecipes_Add.sql" />
+    <Build Include="dbo\Stored Procedures\spRecipes_Del.sql" />
+    <Build Include="dbo\Stored Procedures\spRecipes_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\spRecipes_GetBySubcategoryId.sql" />
+    <Build Include="dbo\Stored Procedures\spRecipes_GetByUserId.sql" />
+    <Build Include="dbo\Views\vwOrigins_Get.sql" />
+    <Build Include="dbo\Views\vwCategories_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Kitchen.Db.refactorlog" />

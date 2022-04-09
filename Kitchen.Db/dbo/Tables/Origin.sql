@@ -2,5 +2,5 @@
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
     [Region] VARCHAR(50) NULL, 
-    [Contry] NVARCHAR(50) NOT NULL
+    [Country] NVARCHAR(50) NOT NULL
 )
