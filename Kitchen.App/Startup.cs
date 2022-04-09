@@ -60,7 +60,7 @@ namespace Kitchen.App
 
             services.AddControllersWithViews();
             services.AddTransient<ISqlDataAccess, SqlDataAccess>();
-            services.AddScoped<IMasterChefData, MasterChefData>();
+            services.AddScoped<IAuthorData, AuthorData>();
             services.AddScoped<IRecipesData, RecipesData>();
             services.AddScoped<ICategoryStructData, CategoryStructData>();
             services.AddScoped<IOriginData, OriginData>();

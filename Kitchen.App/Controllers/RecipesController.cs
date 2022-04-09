@@ -13,10 +13,10 @@ namespace Kitchen.App.Controllers
 {
     public class RecipesController : Controller
     {
-        private readonly IRecipesData _przepisyData;
+        private readonly IRecipesData _recipesData;
         private readonly IMapper _mapper;
         private readonly ICategoryStructData _categoryStructData;
-        private readonly IOriginData _pochodzenieData;
+        private readonly IOriginData _originData;
 
         public RecipesController(
             IRecipesData przepisyData,
@@ -24,46 +24,47 @@ namespace Kitchen.App.Controllers
             ICategoryStructData categoryStructData,
             IOriginData pochodzenieData)
         {
-            _przepisyData = przepisyData;
+            _recipesData = przepisyData;
             _mapper = mapper;
             _categoryStructData = categoryStructData;
-            _pochodzenieData = pochodzenieData;
+            _originData = pochodzenieData;
         }
-        [HttpGet("Przepisy/index/{id}")]
+        [HttpGet("Recipes/index/{id}")]
         public async Task<IActionResult> Index(int id)
         {
-            IEnumerable<RecipeData> _data = await _przepisyData.Get(id);
+            IEnumerable<RecipeData> _data = await _recipesData.Get(id);
             return View(_mapper.Map<IEnumerable<RecipeViewModel>>(_data));
         }
         public async Task<IActionResult> Details(int id)
         {
-            var det = await _przepisyData.GetById(id);
+            var det = await _recipesData.GetById(id);
             return View(_mapper.Map<RecipeDetailsViewModel>(det));
         }
         [Authorize]
-        [HttpGet("/przepisy/add")]
+        [HttpGet("/Recipes/add")]
         public async Task<IActionResult> Add()
         {
-            ViewData["Categories"] = await _categoryStructData.GetCategories();
-            ViewData["Regions"] = _mapper.Map<IEnumerable<RegionViewModel>>(await _pochodzenieData.Get());
+            var a = await _categoryStructData.GetCategories();
+            ViewData["Categories"] = a;
+            ViewData["Regions"] = _mapper.Map<IEnumerable<RegionViewModel>>(await _originData.Get());
 
             return View();
         }
         [Authorize]
-        [HttpPost("/przepisy/add")]
+        [HttpPost("/Recipes/add")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(RecipeDetailsViewModel model, IFormCollection collection)
         {
             model.UserId = HttpContext.User.Claims.Where(x => x.Type.Contains("nameidentifier")).Single().Value;
 
-            await _przepisyData.Add(_mapper.Map<RecipeData>(model));
+            await _recipesData.Add(_mapper.Map<RecipeData>(model));
             return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> GetMy()
         {
             var userId = HttpContext.User.Claims.Where(x => x.Type.Contains("nameidentifier")).Single().Value;
-            var data = await _przepisyData.GetByUserId(userId);
+            var data = await _recipesData.GetByUserId(userId);
             return View(_mapper.Map<IEnumerable<RecipeViewModel>>(data));
         }
         public async Task<IActionResult> Delete(int id)
@@ -74,7 +75,7 @@ namespace Kitchen.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id, IFormCollection collection)
         {
-            await _przepisyData.Delete(id);
+            await _recipesData.Delete(id);
             return RedirectToAction("Index","Home");
         }
     }

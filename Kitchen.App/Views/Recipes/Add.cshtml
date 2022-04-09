@@ -16,67 +16,67 @@
         <form asp-action="Add">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Nazwa" class="control-label"></label>
-                <input asp-for="Nazwa" class="form-control" required />
-                <span asp-validation-for="Nazwa" class="text-danger"></span>
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" required />
+                <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdPodkategorii" class="control-label">Kategoria</label>
-                <select asp-for="IdPodkategorii">
+                <label asp-for="Id_Subcategory" class="control-label">Kategoria</label>
+                <select asp-for="Id_Subcategory">
                     @foreach (var cat in categories)
                     {
-                        foreach (var sub in cat.SubDirectories)
+                        @foreach (var sub in cat.SubDirectories)
                         {
-                            <option value="@sub.ID_Podkategorii">@sub.nazwa_podkategorii</option>
+                            <option value="@sub.Id">@sub.Name</option>
                         }
                     }
                 </select>
-                <span asp-validation-for="IdPodkategorii" class="text-danger"></span>
+                <span asp-validation-for="Id_Subcategory" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Przepis" class="control-label"></label>
-                <input type="text" asp-for="Przepis" class="form-control" required />
-                <span asp-validation-for="Przepis" class="text-danger"></span>
+                <label asp-for="Recipe" class="control-label"></label>
+                <input type="text" asp-for="Recipe" class="form-control" required />
+                <span asp-validation-for="Recipe" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LiczbaPorcji" class="control-label">Liczba porcji</label>
-                <input asp-for="LiczbaPorcji" class="form-control" />
-                <span asp-validation-for="LiczbaPorcji" class="text-danger"></span>
+                <label asp-for="NumberOfServings" class="control-label">Liczba porcji</label>
+                <input asp-for="NumberOfServings" class="form-control" />
+                <span asp-validation-for="NumberOfServings" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="BialkoWPorcji" class="control-label">Bialko w porcji</label>
-                <input asp-for="BialkoWPorcji" class="form-control" />
-                <span asp-validation-for="BialkoWPorcji" class="text-danger"></span>
+                <label asp-for="ProteinsPerServingsInGrams" class="control-label">Bialko w porcji</label>
+                <input asp-for="ProteinsPerServingsInGrams" class="form-control" />
+                <span asp-validation-for="ProteinsPerServingsInGrams" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WeglowodanyWPorcji" class="control-label">Weglowodany w porcji</label>
-                <input asp-for="WeglowodanyWPorcji" class="form-control" />
-                <span asp-validation-for="WeglowodanyWPorcji" class="text-danger"></span>
+                <label asp-for="CarbohydratesPerServingsInGrams" class="control-label">Weglowodany w porcji</label>
+                <input asp-for="CarbohydratesPerServingsInGrams" class="form-control" />
+                <span asp-validation-for="CarbohydratesPerServingsInGrams" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WartoscKalJednejPorcji" class="control-label">Wartosc kal w jednej porcji</label>
-                <input asp-for="WartoscKalJednejPorcji" class="form-control" />
-                <span asp-validation-for="WartoscKalJednejPorcji" class="text-danger"></span>
+                <label asp-for="CaloriesPerServingsInGrams" class="control-label">Wartosc kal w jednej porcji</label>
+                <input asp-for="CaloriesPerServingsInGrams" class="form-control" />
+                <span asp-validation-for="CaloriesPerServingsInGrams" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TluszczeWPorcji" class="control-label">Wartosc kal w jednej porcji</label>
-                <input asp-for="TluszczeWPorcji" class="form-control" />
-                <span asp-validation-for="TluszczeWPorcji" class="text-danger"></span>
+                <label asp-for="FatsPerServingsInGrams" class="control-label">Wartosc kal w jednej porcji</label>
+                <input asp-for="FatsPerServingsInGrams" class="form-control" />
+                <span asp-validation-for="FatsPerServingsInGrams" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SzacowanaWartosc" class="control-label">Szacowana wartosc</label>
-                <input asp-for="SzacowanaWartosc" class="form-control" />
-                <span asp-validation-for="SzacowanaWartosc" class="text-danger"></span>
+                <label asp-for="EstimatedValue" class="control-label">Szacowana wartosc</label>
+                <input asp-for="EstimatedValue" class="form-control" />
+                <span asp-validation-for="EstimatedValue" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdPochodzenia" class="control-label">Pochodzenie</label>
-                <select asp-for="IdPochodzenia">
+                <label asp-for="OriginId" class="control-label">Pochodzenie</label>
+                <select asp-for="OriginId">
                     @foreach (var cat in regions)
                     {
-                        <option value="@cat.Id">@cat.Region , @cat.Kraj</option>
+                        <option value="@cat.Id">@cat.Region , @cat.Country</option>
                     }
                 </select>
-                <span asp-validation-for="IdPochodzenia" class="text-danger"></span>
+                <span asp-validation-for="OriginId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

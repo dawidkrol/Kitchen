@@ -1,5 +1,3 @@
-using System;
-
 namespace Kitchen.App.Models
 {
     public class ErrorViewModel

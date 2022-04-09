@@ -1,10 +1,10 @@
 ﻿@model Kitchen.App.Models.RecipeDetailsViewModel
 
 @{
-    ViewData["Title"] = Model.Nazwa;
+    ViewData["Title"] = Model.Title;
 }
 
-<h1>@Html.DisplayFor(model => model.Nazwa)</h1>
+<h1>@Html.DisplayFor(model => model.Title)</h1>
 @if (Model.UserId == Context?.User?.Claims?.Where(x => x.Type.Contains("nameidentifier"))?.FirstOrDefault()?.Value && Context.User.Identity.IsAuthenticated == true)
 {
     <a href="@Url.Action("Delete", "Recipes", new { id = Model.Id })" class="btn btn-danger float-lg-right">Usuń</a>
@@ -16,41 +16,41 @@
     <div class="row">
         <div class="col-sm-4">
             <h6>LICZBA PORCJI</h6>
-            <p>@Html.DisplayFor(model => model.LiczbaPorcji)</p>
+            <p>@Html.DisplayFor(model => model.NumberOfServings)</p>
         </div>
         <div class="col-sm-4">
             <h6>POCHODZENIE</h6>
-            <p>@Html.DisplayFor(model => model.Region) @Html.DisplayFor(model => model.Kraj)</p>
+            <p>@Html.DisplayFor(model => model.Region) @Html.DisplayFor(model => model.Country)</p>
         </div>
         <div class="col-sm-4">
             <h6>AUTOR</h6>
-            <p>@Html.DisplayFor(model => model.Imie) @Html.DisplayFor(model => model.Nazwisko)</p>
+            <p>@Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.Surname)</p>
         </div>
     </div>
     <br><br>
     <div class="row">
         <div class="col-sm-4">
             <h6>BIAŁKO W PORCJI</h6>
-            <p>@Html.DisplayFor(model => model.BialkoWPorcji)</p>
+            <p>@Html.DisplayFor(model => model.ProteinsPerServingsInGrams)</p>
         </div>
         <div class="col-sm-4">
             <h6>TŁUSZCZE W PORCJI</h6>
-            <p>@Html.DisplayFor(model => model.TluszczeWPorcji)</p>
+            <p>@Html.DisplayFor(model => model.FatsPerServingsInGrams)</p>
         </div>
         <div class="col-sm-4">
             <h6>WĘGLOWODANY W PORCJI</h6>
-            <p>@Html.DisplayFor(model => model.WeglowodanyWPorcji)</p>
+            <p>@Html.DisplayFor(model => model.CarbohydratesPerServingsInGrams)</p>
         </div>
     </div>
     <br><br>
     <div class="row">
         <div class="col-sm-4">
             <h6>WARTOŚĆ KALORII W PORCJI</h6>
-            <p>@Html.DisplayFor(model => model.WartoscKalJednejPorcji)</p>
+            <p>@Html.DisplayFor(model => model.CaloriesPerServingsInGrams)</p>
         </div>
         <div class="col-sm-4">
             <h6>SZACOWANA WARTOŚĆ</h6>
-            <p>@Html.DisplayFor(model => model.SzacowanaWartosc)</p>
+            <p>@Html.DisplayFor(model => model.EstimatedValue)</p>
         </div>
     </div>
 </div>
@@ -58,8 +58,8 @@
 <br />
 
 <dt class="col-sm-2">
-    @Html.DisplayNameFor(model => model.Przepis)
+    @Html.DisplayNameFor(model => model.Recipe)
 </dt>
 <dd class="col-sm-10">
-    @Html.DisplayFor(model => model.Przepis)
+    @Html.DisplayFor(model => model.Recipe)
 </dd>

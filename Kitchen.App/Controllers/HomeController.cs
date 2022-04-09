@@ -14,13 +14,13 @@ namespace Kitchen.App.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly IMasterChefData _masterChef;
+        private readonly IAuthorData _masterChef;
         private readonly ICategoryStructData _structData;
 
         public HomeController(ILogger<HomeController> logger,
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            IMasterChefData masterChef,
+            IAuthorData masterChef,
             ICategoryStructData structData)
         {
             _signInManager = signInManager;
@@ -81,7 +81,7 @@ namespace Kitchen.App.Controllers
             {
                 addedUser = await _userManager.FindByEmailAsync(register.Email);
 
-                await _masterChef.AddMasterChefAsync(addedUser.Id, register.Name, register.Surname, register.Email, register.PhoneNumber);
+                await _masterChef.AddAuthorAsync(addedUser.Id, register.Name, register.Surname, register.Email, register.PhoneNumber);
             }
             return RedirectToAction("Index");
         }

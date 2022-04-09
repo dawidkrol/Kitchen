@@ -4,6 +4,6 @@
     {
         public int Id { get; set; }
         public string Region { get; set; }
-        public string Kraj { get; set; }
+        public string Country { get; set; }
     }
 }

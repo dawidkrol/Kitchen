@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kitchen.Library.DataModels
+﻿namespace Kitchen.Library.DataModels
 {
-    public class SubCategoriesData
+    public class SubcategoriesData
     {
-        public int ID_Podkategorii { get; set; }
-        public string nazwa_podkategorii { get; set; }
-        public int ID_Kategorii { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int CategoryId { get; set; }
     }
 }

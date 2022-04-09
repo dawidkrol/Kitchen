@@ -3,12 +3,12 @@
 <div id="accordion">
     @foreach (var item in Model)
     {
-        var id = item.NazwaKategorii.Split(' ')[0] + new Random().Next().ToString();
+        var id = item.CategoryName.Split(' ')[0] + new Random().Next().ToString();
     <div class="card">
         <button class="btn" data-toggle="collapse" data-target="#@id" aria-expanded="false" aria-controls="@id">
             <div class="" id="headingOne">
                 <h5 class="mb-0">
-                    @item?.NazwaKategorii
+                    @item?.CategoryName
                 </h5>
             </div>
         </button>
@@ -16,7 +16,7 @@
             <div class="card-body">
                 @foreach (var i in item?.SubDirectories)
                 {
-                    <a class="btn btn-block" href="@Url.Action("", "Recipes", new { id = i.ID_Podkategorii })">@i.nazwa_podkategorii</a>
+                    <a class="btn btn-block" href="@Url.Action("", "Recipes", new { id = i.Id })">@i.Name</a>
                     <br />
                 }
             </div>
