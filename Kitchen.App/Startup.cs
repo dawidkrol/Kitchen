@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace Kitchen.App
 {
@@ -46,6 +47,8 @@ namespace Kitchen.App
                 config.Cookie.Name = "Auth.Cookie";
                 config.LoginPath = "/Home/Authenticate";
             });
+
+            services.AddLogging();
 
             services.AddAutoMapper(config =>
             {
@@ -100,6 +103,8 @@ namespace Kitchen.App
             {
                 endpoints.MapDefaultControllerRoute();
             });
+
+            app.UseSerilogRequestLogging();
         }
     }
 }

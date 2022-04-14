@@ -33,6 +33,7 @@ namespace Kitchen.App.Controllers
         public async Task<IActionResult> Index()
         {
             var categories = await _structData.GetCategories();
+            _logger.LogInformation("Loadning home page");
             return View(categories);
         }
 

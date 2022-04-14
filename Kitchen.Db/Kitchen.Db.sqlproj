@@ -84,4 +84,7 @@
   <ItemGroup>
     <RefactorLog Include="Kitchen.Db.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Kitchen.Db.publish.xml" />
+  </ItemGroup>
 </Project>
