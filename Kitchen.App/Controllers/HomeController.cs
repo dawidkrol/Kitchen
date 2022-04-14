@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -32,9 +33,17 @@ namespace Kitchen.App.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var categories = await _structData.GetCategories();
-            _logger.LogInformation("Loadning home page");
-            return View(categories);
+            try
+            {
+                var categories = await _structData.GetCategories();
+                _logger.LogInformation("Loadning home page");
+                return View(categories);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest("Cannot load index page");
+            }
         }
 
         public IActionResult Login()
@@ -49,8 +58,12 @@ namespace Kitchen.App.Controllers
 
             if (user != null)
             {
-                //sign in
                 await _signInManager.PasswordSignInAsync(user, login.Password, false, false);
+                _logger.LogInformation("User {user} is logged in", user.Email);
+            }
+            else
+            {
+                _logger.LogError("Cannot find user {user}", login.Email);
             }
 
             return RedirectToAction("Index");
@@ -73,6 +86,7 @@ namespace Kitchen.App.Controllers
 
             if (addedUser != null)
             {
+                _logger.LogError("User with email {email} already exists.", register.Email);
                 return BadRequest("User already exists");
             }
 
@@ -83,11 +97,20 @@ namespace Kitchen.App.Controllers
                 addedUser = await _userManager.FindByEmailAsync(register.Email);
 
                 await _masterChef.AddAuthorAsync(addedUser.Id, register.Name, register.Surname, register.Email, register.PhoneNumber);
+
+                //TODO: Create decorator for Identityuser with better ToString() method;
+                _logger.LogInformation("User [\n\t{\n\t\tID: {userId};\n\t\tUserName: {username};\n\t}\n]\n has been created correctly", addedUser.Email, addedUser.UserName);
             }
+            else
+            {
+                return BadRequest("Cannot create this account");
+            }
+
             return RedirectToAction("Index");
         }
         public IActionResult Logout()
         {
+            _logger.LogInformation("User {user} is logged out", HttpContext.User.Claims.Where(x => x.Type.Contains("emailaddress")).Single().Value);
             Response.Cookies.Delete("Auth.Cookie");
             return RedirectToAction("Index");
         }
