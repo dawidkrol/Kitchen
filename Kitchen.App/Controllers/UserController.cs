@@ -12,14 +12,14 @@ namespace Kitchen.App.Controllers
 {
     public class UserController : Controller
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUserModel> _signInManager;
+        private readonly UserManager<IdentityUserModel> _userManager;
         private readonly ILogger<UserController> _logger;
         private readonly IAuthorData _authorData;
 
         public UserController(
-            SignInManager<IdentityUser> signInManager,
-            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUserModel> signInManager,
+            UserManager<IdentityUserModel> userManager,
             ILogger<UserController> logger,
             IAuthorData authorData)
         {
@@ -38,14 +38,34 @@ namespace Kitchen.App.Controllers
         {
             var user = await _userManager.FindByEmailAsync(login.Email);
 
+            async Task<bool> LI()
+            {
+                var a = await _signInManager.PasswordSignInAsync(user, login.Password, false, false);
+                return a.Succeeded;
+            }
+            async Task<bool> TimeOut()
+            {
+                await Task.Delay(5000);
+                return false;
+            }
+
             if (user != null)
             {
-                await _signInManager.PasswordSignInAsync(user, login.Password, false, false);
-                _logger.LogInformation("User {user} is logged in", user.Email);
+                Task<bool> a = await Task.WhenAny(LI(), TimeOut());
+                if (await a)
+                {
+                    _logger.LogInformation("User {user} is logged in", user.Email);
+                }
+                else
+                {
+                    _logger.LogInformation("Timeout");
+                    return BadRequest($"Timeout");
+                }
             }
             else
             {
                 _logger.LogError("Cannot find user {user}", login.Email);
+                return BadRequest($"Cannot find user {login.Email}");
             }
 
             return RedirectToAction("Index", "Home");
@@ -58,8 +78,14 @@ namespace Kitchen.App.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel register)
         {
-            var username = $"{register.Name.ToLowerInvariant()}{register.Surname.ToLowerInvariant()}{new Random().Next()}";
-            var user = new IdentityUser
+            if(register.Password == null)
+            {
+                _logger.LogInformation("Password is null");
+                return BadRequest("Password cannot be empty");
+            }
+      
+            var username = $"{register.Name.ToLowerInvariant()}{register.Surname.ToLowerInvariant()}{Guid.NewGuid()}";
+            var user = new IdentityUserModel
             {
                 Email = register.Email,
                 UserName = new Regex(@"([^a-z])").Replace(username, "0")
@@ -80,8 +106,7 @@ namespace Kitchen.App.Controllers
 
                 await _authorData.AddAuthorAsync(addedUser.Id, register.Name, register.Surname, register.Email, register.PhoneNumber);
 
-                //TODO: Create decorator for Identityuser with better ToString() method;
-                _logger.LogInformation("User [\n\t{\n\t\tID: {userId};\n\t\tUserName: {username};\n\t}\n]\n has been created correctly", addedUser.Email, addedUser.UserName);
+                _logger.LogInformation("User {user} has been created correctly", addedUser);
             }
             else
             {

@@ -31,7 +31,7 @@ namespace Kitchen.App
                     connectionString: Configuration.GetConnectionString("Auth")
                     ));
 
-            services.AddIdentity<IdentityUser, IdentityRole>(config =>
+            services.AddIdentity<IdentityUserModel, IdentityRole>(config =>
             {
                 config.Password.RequireUppercase = false;
                 config.Password.RequireLowercase = false;
